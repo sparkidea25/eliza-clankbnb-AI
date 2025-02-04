@@ -46,6 +46,7 @@ export const mainCharacter = {
         "cloud computing",
         "next.js and react.js"
     ],
+    
     messageExamples: [
         [
             {
