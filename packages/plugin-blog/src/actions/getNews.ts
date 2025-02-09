@@ -7,18 +7,20 @@ import {
     Memory,
     State,
 } from "@elizaos/core";
-import { getListingExamples } from "../examples";
-import { propertyListingService } from "../services";
+// import { getListingExamples } from "../examples";
+// import { propertyListingService } from "../services";
+import { getContentExamples } from "../examples";
+import { contentService } from "../services";
 // import { validateNasaConfig } from "../environment";
 // import { getMarsRoverExamples } from "../examples";
 // import { createNASAService } from "../services";
 
-export const getListingsAction: Action = {
-    name: "CLANKBNB_GET_LISTINGS",
+export const getContentAction: Action = {
+    name: "GET_NEWS",
     similes: [
-        "CLANKBNB",
-        "LISTINGS",
-        "RENTAL"
+        "CRYPTO_NEWS",
+        "LATEST_NEWS",
+        "BLOG_NEWS"
     ],
     description: "get a random listing",
     validate: async (runtime: IAgentRuntime) => {
@@ -33,19 +35,17 @@ export const getListingsAction: Action = {
         callback: HandlerCallback
     ) => {
         // const config = await validateNasaConfig(runtime);
-        const listingService = propertyListingService();
+        const contentsService = contentService();
 
         try {
-            const listingsData = await listingService.getListing();
+            const listingsData = await contentsService.getContent();
             elizaLogger.success(
-                `Successfully fetched clankBnb listing`
+                `Successfully fetched blog content`
             );
             if (callback) {
                 callback({
                     text: `
-                    Here is my house title ${listingsData.title} with description ${listingsData.description} with area ${listingsData.area} details.
-
-                    ${listingsData.images[1]}
+                    Here is my blog title ${listingsData.title} with body ${listingsData.body}.
                     `
                 });
                 return true;
@@ -59,5 +59,5 @@ export const getListingsAction: Action = {
             return false;
         }
     },
-    examples: getListingExamples as ActionExample[][],
+    examples: getContentExamples as ActionExample[][],
 } as Action;

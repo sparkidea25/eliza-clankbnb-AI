@@ -84,5 +84,4 @@ Thread of messages You Are Replying To:
 
 Current message:
 {{currentPost}}
-
 ` + shouldRespondFooter;

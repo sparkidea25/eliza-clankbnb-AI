@@ -94,6 +94,7 @@
         "@elizaos/plugin-zksync-era": "workspace:*",
         "@elizaos/plugin-nasa": "workspace:*",
         "@elizaos/plugin-clankbnb": "workspace:*",
+        "@elizaos/plugin-blog": "workspace:*",
         "readline": "1.3.0",
         "ws": "8.18.0",
         "yargs": "17.7.2"

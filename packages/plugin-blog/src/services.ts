@@ -3,17 +3,19 @@
 //     MarsRoverDataResponse
 // } from "./types";
 
-import { addListing, getListing } from "./types";
+import { getContent } from "./types";
 
-const BASE_URL = "https://clankbnb.onrender.com/api/v1/listing"
+// import { getListing } from "./types";
+
+const BASE_URL = "https://fetchrss.com/rss/67a62835126e19782b0d3dc267a62a6606781260ae01f152.xml"
 // "https://api.nasa.gov/planetary/apod\?api_key\=";
 
-export const propertyListingService = () => {
+export const contentService = () => {
 
 
-    const getListing = async (): Promise<getListing> => {
+    const getContent = async (): Promise<getContent> => {
         try {
-            const data = await fetchListing();
+            const data = await fetchContent();
             return data;
         } catch (error: any) {
             console.error("listing data:", error.message);
@@ -21,94 +23,23 @@ export const propertyListingService = () => {
         }
     }
 
-    const addListing = async(listing: addListing): Promise<addListing> => {
-        try {
-            const data = await fetchAddListing(listing)
-            return data;
-
-        } catch(error: any) {
-            throw error
-        }
-    }
-
-    return { getListing, addListing };
-
-
-    // const addListing = async (listing: addListing): Promise<addListing> => {
-        // try {
-        // } catch (e) {
-        //     console.error(e);
-        //     throw e;
-        // }
-    // }
-    //  await fetchAddListing()
+    return { getContent };
 };
 
-async function fetchListing(attempts= 0, maxAttempts = 10) {
+async function fetchContent(attempts= 0, maxAttempts = 10) {
 
     try {
         const response = await fetch(BASE_URL);
         const data = await response.json();
 
-        const returnObj = {
-           title: data.title,
-           description: data.description,
-           houseType: data.houseType,
-           location: data.location,
-           area: data.area,
-           price: data.price,
-           guest: data.guest,
-           bedroom: data.bedroom,
-           bathroom: data.bathroom,
-           images: data.images[1].thumbnail,
-           features: data.features[1].name
-        };
-
-        return returnObj;
+        return data;
 
     } catch(err) {
         console.log("error fetch clankbnb listings ...", err)
 
     }
-}
 
-async function fetchAddListing(listing: {
-    title: string,
-    slug: string,
-    description: string,
-    houseType: string,
-    location: string,
-    area: string,
-    price: string,
-    bedroom: string,
-    guest: string,
-    images: string[],
-    bathroom: string,
-    features: string[],
 
-}, attempts= 0, maxAttempts = 10) {
-    try {
-        const response = await fetch(BASE_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(listing)
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to add listing');
-        }
-
-        return await response.json();
-    } catch (e) {
-        console.error(e);
-        throw e;
-    }
-}
-
-async function bookListing() {
-    
 }
 
 async function fetchMarsPhotos(apiKey, attempts = 0, maxAttempts = 10) {
